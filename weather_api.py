@@ -50,7 +50,7 @@ for results_obj in results_list:
 station_url = "https://meteostat.p.rapidapi.com/stations/nearby?"
 station_url += "lat=" + lat
 station_url += "&lon=" + long
-headers = {"x-rapidapi-key": "85e04a8430mshb31d989248df855p182ab5jsn71e9b0a53f24"}
+headers = {"x-rapidapi-key": "{Your API key here}"}
 
 response_station = requests.get(url=station_url, headers=headers)
 station_json_str = response_station.text
@@ -85,14 +85,6 @@ for column in df:
         df[column].fillna( method ='ffill', inplace = True)
 df.drop(["tmax","tmin"],axis=1,inplace=True)
 
-workout_ser_merged = utils.clean_weather(df)
 
-ser = df["tavg"].copy()
-for i in range(len(ser)):
-    curr_val = (ser.iloc[i])
-    curr = ser.iloc[i]
-    if curr == 'N':
-        ser.iloc[i] = round(curr_val - 2,1)
-df["tavg"] = ser
 
 df.to_csv(location+"_daily_weather_cleaned.csv",index=False)
